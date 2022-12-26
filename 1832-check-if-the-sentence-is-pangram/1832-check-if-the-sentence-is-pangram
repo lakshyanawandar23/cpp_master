@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) { // T.C. O(n) and A.S. O(26) 
+        set<int> alphabets;
+        for(auto c:sentence){
+            alphabets.insert(c-'a');
+        }
+        return alphabets.size()==26;
+    }
+};
