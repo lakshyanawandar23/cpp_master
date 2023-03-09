@@ -7,45 +7,79 @@ using namespace std;
 
 // } Driver Code Ends
 // User function template for C++
-
 class Solution{
-    public:
-    bool safe(int i,int j,vector<vector<int>>&m,vector<vector<int>>&vis){
-        if(i<0||j<0||i==m.size()||j==m.size()||vis[i][j]==1||m[i][j]==0){
-            return false;
+    bool safe(vector<vector<int>>& m,vector<vector<int>>& v,int x,int y,int &n)
+    {
+        if(x>=0&&x<=n-1&&y>=0&&y<=n-1&& v[x][y]==0&& m[x][y]==1)
+        {
+            return true;
         }
-        return true;
+        return false;
     }
-    void solve(int i,int j,vector<vector<int>>&m,int  &n,string res,vector<string>&ans,vector<vector<int>>&vis){
-        if(i==n-1&&j==n-1){
-            ans.push_back(res);
+    void fun(vector<vector<int>> &m,vector<vector<int>> &v,int n,int x,int y,string &s,vector<string> &ans)
+    {
+        if(x==n-1&&y==n-1)
+        {
+            ans.push_back(s);
             return ;
         }
-        vis[i][j]=1;
-        if(safe(i+1,j,m,vis)){
-           solve(i+1,j,m,n,res+"D",ans,vis);
+        v[x][y]=1;
+        
+        // down
+        int newx=x+1;
+        int newy=y;
+        if(safe(m,v,newx,newy,n))
+        {
+            s.push_back('D');
+            fun(m,v,n,newx,newy,s,ans);
+            s.pop_back();
         }
-         if(safe(i-1,j,m,vis)){
-           solve(i-1,j,m,n,res+"U",ans,vis);
+        
+        // left
+         newx=x;
+         newy=y-1;
+        if(safe(m,v,newx,newy,n))
+        {
+            s.push_back('L');
+            fun(m,v,n,newx,newy,s,ans);
+            s.pop_back();
         }
-         if(safe(i,j+1,m,vis)){
-           solve(i,j+1,m,n,res+"R",ans,vis);
+        
+        // right
+         newx=x;
+         newy=y+1;
+        if(safe(m,v,newx,newy,n))
+        {
+            s.push_back('R');
+            fun(m,v,n,newx,newy,s,ans);
+            s.pop_back();
         }
-         if(safe(i,j-1,m,vis)){
-           solve(i,j-1,m,n,res+"L",ans,vis);
+        
+        // up
+         newx=x-1;
+         newy=y;
+        if(safe(m,v,newx,newy,n))
+        {
+            s.push_back('U');
+            fun(m,v,n,newx,newy,s,ans);
+            s.pop_back();
         }
-        vis[i][j]=0;
+        v[x][y]=0;
+    //    return ans;
     }
+    public:
     vector<string> findPath(vector<vector<int>> &m, int n) {
-        // Your code goes here
-        vector<string>ans;
-        vector<vector<int>>vis(n,vector<int>(n,0));
-        if(m[0][0]==0||m[n-1][n-1]==0){
+        vector<string> ans;
+        int x=0;
+        int y=0;
+        if(m[0][0]==0||m[n-1][n-1]==0)
+        {
             return ans;
         }
-        string res;
-        solve(0,0,m,n,res,ans,vis);
-        return ans;
+        vector<vector<int>>v(n,vector<int>(n,0));
+        string s="";
+         fun(m,v,n,x,y,s,ans);
+         return ans;
     }
 };
 
