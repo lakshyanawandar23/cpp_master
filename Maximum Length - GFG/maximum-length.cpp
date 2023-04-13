@@ -11,7 +11,7 @@ class Solution {
 public:
     int solve(int a, int b, int c) {
         // code here
-        if(a>2*(b+c)+2||b>2*(c+a)+2||c>2*(a+b)+2){
+        if(a>2*(b+c+1)||b>2*(c+a+1)||c>2*(a+b+1)){
             return -1;
         }
         return a+b+c;
