@@ -1,12 +1,11 @@
-typedef  pair<int,int> pi;
-#define pq priority_queue<pi,vector<pi>,greater<pi>>
 class Graph {
 public:
-    vector<vector<pair<int,long long int>>>adj;
+    vector<vector<pair<int,int>>>adj;
     int m;
     Graph(int n, vector<vector<int>>& edges) {
         adj.resize(n);
-   for( auto &e:edges)
+        m=n;
+      for( auto &e:edges)
         {
             adj[e[0]].push_back({e[1],e[2]});
         }
@@ -16,29 +15,26 @@ public:
          adj[e[0]].push_back({e[1],e[2]});
     }
     
-    int shortestPath(int st, int end) {
-        vector<int>vis(adj.size(),INT_MAX);
-      pq minH;
-     minH.push({0,st});
-     vis[st]=0;
-     while(!minH.empty() && minH.top().second!=end)
-     {
-          auto [currD,currN]=minH.top();
-         minH.pop();
-         if(currD>vis[currN]) 
-         continue;
-         for(auto &[adjN,adjD]:adj[currN])
-         {
-             if(adjD+currD<vis[adjN])
-             {
-                 vis[adjN]=adjD+currD;
-                   minH.push({vis[adjN],adjN});
-             }
-             
-         }
-     }
-     return vis[end]!=INT_MAX ? vis[end] :-1; 
-
+    int shortestPath(int n1, int n2) {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+        vector<int>dis(m,INT_MAX);
+        dis[n1]=0;
+        q.push({0,n1});
+        while(!q.empty()){
+            auto p=q.top();
+            q.pop();
+        if(p.first<dis[p.second]){
+            continue;
+        }
+            for(auto it:adj[p.second]){
+                int s=p.first+it.second;
+                if(dis[it.first]>s){
+                    dis[it.first]=s;
+                q.push({s,it.first});
+                }
+            }
+        }
+        return dis[n2]==INT_MAX?-1:dis[n2];
     }
 };
 
