@@ -41,7 +41,7 @@ public:
 
 class Solution{
 public:
-string solve(Node* root,map<string,int>&m){
+string solve(Node* root,unordered_map<string,int>&m){
     if(root==NULL){
         return "";
     }
@@ -54,7 +54,7 @@ string solve(Node* root,map<string,int>&m){
 }
     int duplicateSubtreeNaryTree(Node *root){
         // Code here
-        map<string,int>m;
+        unordered_map<string,int>m;
         solve(root,m);
         int cnt=0;
         for(auto it:m){
