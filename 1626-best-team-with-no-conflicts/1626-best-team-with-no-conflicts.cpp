@@ -1,11 +1,5 @@
 class Solution {
 public:
-    static bool help(pair<int,int>&a,pair<int,int>&b){
-        if(a.first==b.first){
-            return a.second>b.second;
-        }
-        return  a.first<b.first;
-    }
     int solve(vector<pair<int,int>>&v,int i,int prev,vector<vector<int>>&dp){
         if(i==v.size()){
             return 0;
