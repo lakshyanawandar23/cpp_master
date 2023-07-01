@@ -3,7 +3,7 @@ public:
     int ans;
     void solve(int i,int &ans,vector<int>&c,int &k,vector<int>&v,int &n){
         if(i==n){
-            int res=INT_MIN;
+            int res=0;
             for(int j=0;j<k;j++){
                 res=max(res,v[j]);
             }
