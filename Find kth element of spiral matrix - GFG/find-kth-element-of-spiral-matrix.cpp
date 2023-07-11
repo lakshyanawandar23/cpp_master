@@ -11,30 +11,43 @@ class Solution
     int findK(int a[MAX][MAX],int n,int m,int k)
     {
  		// Your code goes here.
- 		int l=0,r=m-1,up=0,down=n-1;
- 		vector<int>v;
+ 		int l=0,r=m-1,up=0,down=n-1,cnt=0;
+ 		//vector<int>v;
  		while(l<=r&&up<=down){
  		    for(int i=l;i<=r;i++){
- 		        v.push_back(a[up][i]);
+ 		        cnt++;
+ 		        if(cnt==k){
+ 		        return (a[up][i]);
+ 		    }
  		    }
  		    up++;
  		    for(int i=up;i<=down;i++){
- 		        v.push_back(a[i][r]);
+ 		       cnt++;
+ 		        if(cnt==k){
+ 		        return (a[i][r]);
+ 		    }
  		    }
  		    r--;
  		    for(int i=r;i>=l;i--){
- 		        v.push_back(a[down][i]);
+ 		        cnt++;
+ 		        if(cnt==k){
+ 		        return (a[down][i]);
+ 		    }
  		    }
  		    down--;
  		    for(int i=down;i>=up;i--){
- 		        v.push_back(a[i][l]);
+ 		        cnt++;
+ 		        if(cnt==k){
+ 		        return (a[i][l]);
+ 		    }
  		    }
  		    l++;
  		}
- 		return v[k-1];
+ 		return 0;
     }
 };
-
+//TC O(N*M);
+//SCO(N*M);
 
 
 
