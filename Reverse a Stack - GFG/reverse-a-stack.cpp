@@ -10,22 +10,20 @@ using namespace std;
 
 class Solution{
 public:
-void solve(stack<int>&s,queue<int>&ans){
-    if(s.size()==0){
-        return ;
-    }
-    int t=s.top();
-    s.pop();
-    ans.push(t);
-    solve(s,ans);
-    int r=ans.front();
-    ans.pop();
-    s.push(r);
-}
+  void solve(stack<int>&s,queue<int>&v){
+      if(s.size()==0){
+          return ;
+      }
+      v.push(s.top());
+      s.pop();
+      solve(s,v);
+      s.push(v.front());
+      v.pop();
+      return ;
+  }
     void Reverse(stack<int> &s){
-        queue<int>ans;
-     //   cout<<s.top()<<endl;
-        solve(s,ans);
+        queue<int>v;
+        solve(s,v);
         return ;
     }
 };
