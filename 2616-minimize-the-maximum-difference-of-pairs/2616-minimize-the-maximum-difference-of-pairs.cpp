@@ -1,14 +1,14 @@
 class Solution {
 public:
-    bool solve(vector<int>&num,int mid,int &p){
+    bool solve(vector<int>&num,int mid,int p){
         int cnt=0;
         for(int i=1;i<num.size();i++){
             if(num[i]-num[i-1]<=mid){
-                cnt++;
+                p--;
                 i++;
             }
         }
-        return p<=cnt;
+        return p<=0;
     }
     int minimizeMax(vector<int>& num, int p) {
         sort(num.begin(),num.end());
