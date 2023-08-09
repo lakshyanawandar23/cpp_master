@@ -1,27 +1,27 @@
 class Solution {
 public:
-    bool solve(vector<int>&a,int &p,int &m){
+    bool solve(vector<int>&num,int mid,int &p){
         int cnt=0;
-        for(int i=1;i<a.size();i++){
-            if(a[i]-a[i-1]<=m){
+        for(int i=1;i<num.size();i++){
+            if(num[i]-num[i-1]<=mid){
                 cnt++;
                 i++;
             }
         }
-        return cnt>=p;
+        return p<=cnt;
     }
-    int minimizeMax(vector<int>& a, int p) {
-        int ans=0,n=a.size();
-        sort(a.begin(),a.end());
-        int l=0,h=a[n-1]-a[0];
+    int minimizeMax(vector<int>& num, int p) {
+        sort(num.begin(),num.end());
+        int l=0,h=num[num.size()-1]-num[0];
+        int ans=0;
         while(l<=h){
-            int m=(l+h)/2;
-            if(solve(a,p,m)){
-                ans=m;
-                h=m-1;
+            int mid=(l+h)/2;
+            if(solve(num,mid,p)){
+                ans=mid;
+                h=mid-1;
             }
             else{
-                l=m+1;
+                l=mid+1;
             }
         }
         return ans;
