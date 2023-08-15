@@ -20,10 +20,8 @@ public:
             if(it&bit){
                 f=f^it;
             }
-            else{
-                sec=sec^it;
-            }
         }
+        sec=s^f;
         vector<int>v;
         v.push_back(sec);
         v.push_back(f);
