@@ -10,12 +10,7 @@ public:
         for(int i=0;i<n;i++){
          //   set<int>s;
            // set<int>original;
-            int cnt=0;
-        for(auto it:adj[i]){
-          //  s.insert(i);
-        //original.insert(i);
-            cnt++;
-        }
+     int cnt=adj[i].size();
             for(int j=i+1;j<n;j++){
                 int res=0;
                 for(auto it:adj[j]){
