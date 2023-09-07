@@ -13,9 +13,9 @@ class Solution {
     int minimumMultiplications(vector<int>& arr, int s, int e) {
         // code here
         queue<pair<int,int>>q;
-        vector<int>vis(100000,0);
+     vector<int>vis(100001,INT_MAX);
+        vis[s]=0;
         q.push({s,0});
-        vis[s]=1;
         while(!q.empty()){
             auto p=q.front();
             q.pop();
@@ -24,9 +24,9 @@ class Solution {
             }
             for(int i=0;i<arr.size();i++){
                 int x=(p.first*arr[i])%100000;
-                if(vis[x]==0){
-                    vis[x]=1;
+                if(vis[x]>p.second+1){
                     q.push({x,p.second+1});
+                    vis[x]=p.second+1;
                 }
             }
         }
