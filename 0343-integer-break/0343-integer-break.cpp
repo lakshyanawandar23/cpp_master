@@ -1,23 +1,22 @@
 class Solution {
 public:
-    int solve(int n,vector<int>&dp,int cnt){
-        if(n==0){
-            if(cnt==1){
-                return 0;
-            }
+    int solve(int &n,int ans,vector<int>&dp){
+        if(ans==0){
             return 1;
         }
-        if(dp[n]!=-1){
-            return dp[n];
+        if(dp[ans]!=-1){
+            return dp[ans];
         }
-        int ans=0;
-        for(int j=1;j<=n;j++){
-            ans=max(ans,j*solve(n-j,dp,cnt+1));
+        int res=-1;
+        for(int i=1;i<n;i++){
+            if(i<=ans){
+            res=max(res,i*solve(n,ans-i,dp));
         }
-        return dp[n]=ans;
+        }
+        return dp[ans]=res;
     }
     int integerBreak(int n) {
-        vector<int>dp(n+1,-1);
-        return solve(n,dp,0);
+        vector<int>dp(10000,-1);
+        return solve(n,n,dp);
     }
 };
