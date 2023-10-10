@@ -1,23 +1,24 @@
 class Solution {
 public:
-int ans=INT_MAX;
-void solve(int s,vector<int>&vis,vector<pair<int,int>>adj[]){
-    vis[s]=1;
-    for(auto val:adj[s]){
-        ans=min(ans,val.second);
-        if(vis[val.first]==0){
-            solve(val.first,vis,adj);
+    void solve(int src,int &ans,vector<pair<int,int>>adj[],vector<int>&vis){
+        vis[src]=1;
+        for(auto it:adj[src]){
+            ans=min(ans,it.second);
+          if(vis[it.first]==0){
+              solve(it.first,ans,adj,vis);
+          }
         }
+        return ;
     }
-}
     int minScore(int n, vector<vector<int>>& r) {
         vector<pair<int,int>>adj[n+1];
-        vector<int>vis(n+1,0);
         for(int i=0;i<r.size();i++){
-            adj[r[i][0]-1].push_back({r[i][1]-1,r[i][2]});
-             adj[r[i][1]-1].push_back({r[i][0]-1,r[i][2]});
+            adj[r[i][0]].push_back({r[i][1],r[i][2]});
+              adj[r[i][1]].push_back({r[i][0],r[i][2]});
         }
-        solve(0,vis,adj);
+        int ans=INT_MAX;
+        vector<int>vis(n+1,0);
+        solve(1,ans,adj,vis);
         return ans;
     }
 };
