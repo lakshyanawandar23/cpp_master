@@ -16,18 +16,18 @@ public:
         if(root==NULL){
             return {0,0};
         }
-        auto l=solve(root->left);
-        auto r=solve(root->right);
-        int sum=l.first+r.first+root->val;
-        int size=l.second+r.second+1;
-        if(sum/size==root->val){
+    auto l=solve(root->left);
+    auto r=solve(root->right);
+        int s=root->val+l.first+r.first;
+        int n=1+l.second+r.second;
+        int avg=s/n;
+        if(avg==root->val){
             cnt++;
         }
-        return {sum,size};
+        return {s,n};
     }
-    
     int averageOfSubtree(TreeNode* root) {
-     cnt=0;
+        cnt=0;
         solve(root);
         return cnt;
     }
