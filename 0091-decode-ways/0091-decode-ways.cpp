@@ -1,15 +1,18 @@
 class Solution {
 public:
     int solve(vector<int>&dp,string&s,int &n,int i){
-        if(i==n){
+        if(s[i]=='0') return 0;
+        if(i>=n-1){
             return 1;
         }
-        if(s[i]=='0') return 0;
         if(dp[i]!=-1) return dp[i];
       int cnt=0;
-    cnt+=solve(dp,s,n,i+1);
-        if(i+1<n&&s.substr(i,2)<="26"){
-            cnt+=solve(dp,s,n,i+2);
+        for(int j=0;j<=1;j++){
+           string ans=s.substr(i,j+1);
+            int res=stoi(ans);
+            if(res>0&&res<27){
+                cnt+=solve(dp,s,n,i+j+1);
+            }
         }
         return dp[i]=cnt;
     }
