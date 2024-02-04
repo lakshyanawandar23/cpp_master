@@ -1,24 +1,19 @@
 class Solution {
 public:
-    int n;
-    int solve(int i,int sum,vector<int>&dp,vector<int>&arr,int &k){
-        if(i>=arr.size()){
-            return 0;
+    int solve(vector<int>&dp,int &n,vector<int>&arr,int i,int &k){
+        if(i==n) return 0;
+        if(dp[i]!=-1) return dp[i];
+        int ans=0,maxi=0;
+        for(int j=i;j<=min(n-1,i+k-1);j++){
+            ans=max(ans,arr[j]);
+        maxi=max(maxi,solve(dp,n,arr,j+1,k)+ans*(j-i+1));
+            
         }
-        if(dp[i]!=-1){
-            return dp[i];
-        }
-        int ans=INT_MIN;
-        int maxi=INT_MIN;
-        for(int j=i;j<min(n,i+k);j++){
-            maxi=max(maxi,arr[j]);
-            ans=max(ans,solve(j+1,sum,dp,arr,k)+(maxi*(j-i+1)));
-        }
-        return dp[i]=ans;
+        return dp[i]=maxi;
     }
     int maxSumAfterPartitioning(vector<int>& arr, int k) {
-       n=arr.size();
-        vector<int>dp(arr.size()+1,-1);
-        return solve(0,0,dp,arr,k);
+        int n=arr.size();
+        vector<int>dp(n+1,-1);
+       return solve(dp,n,arr,0,k);
     }
 };
