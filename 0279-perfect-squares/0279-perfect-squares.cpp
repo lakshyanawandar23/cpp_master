@@ -1,22 +1,22 @@
 class Solution {
 public:
-    int solve(int n,vector<int>&dp){
-        if(n==0){
+    int solve(vector<int>&dp,int n){
+        if(n==0) {
             return 0;
         }
         if(dp[n]!=-1){
-            return dp[n];
+        return dp[n];
         }
-        int ans=INT_MAX;
-        for(int i=1;i*i<=n;i++){
-            if(n>=(i*i)){
-            ans=min(ans,1+solve(n-(i*i),dp));
+        int ans=1e9;
+        for(int j=1;j<=sqrt(n);j++){
+            if((n-j*j)>=0){
+                ans=min(ans,1+solve(dp,n-(j*j)));
+            }
         }
-                    }
-                    return dp[n]=ans;
+        return dp[n]=ans;
     }
     int numSquares(int n) {
         vector<int>dp(n+1,-1);
-        return solve(n,dp);
+        return solve(dp,n);
     }
 };
