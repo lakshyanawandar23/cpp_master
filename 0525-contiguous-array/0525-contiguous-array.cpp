@@ -1,9 +1,9 @@
 class Solution {
 public:
     int findMaxLength(vector<int>& num) {
-        map<int,int>mp;
+        unordered_map<int,int>mp;
         mp[0]=-1;
-        int s=0,ans=INT_MIN;
+        int s=0,ans=0;
         for(int i=0;i<num.size();i++){
             if(num[i]==0){
                 s+=-1;
@@ -18,6 +18,6 @@ public:
                 mp[s]=i;
             }
         }
-        return ans==INT_MIN?0:ans;
+        return ans;
     }
 };
