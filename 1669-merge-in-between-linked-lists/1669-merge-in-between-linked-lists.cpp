@@ -20,14 +20,15 @@ public:
             next1=next1->next;
         }
         while(curr!=NULL){
-            cnt++;
-            if(cnt==a){
+        
+            if(cnt==a-1){
                 prev=curr;
             }
-            if(cnt==b+2){
+            if(cnt==b+1){
                 next=curr;
                 break;
             }
+            cnt++;
             curr=curr->next;
         }
         prev->next=list2;
