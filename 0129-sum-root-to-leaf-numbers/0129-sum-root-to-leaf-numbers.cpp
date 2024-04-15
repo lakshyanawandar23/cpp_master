@@ -11,26 +11,23 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root,int ans,int &sum){
+    int sum=0;
+    void solve(TreeNode *root,int ans){
+        if(root==NULL) return ;
         if(root->left==NULL&&root->right==NULL){
-            ans=ans*10+root->val;
-            sum+=ans;
+            ans=(ans*10)+(root->val);
+          sum+=ans;
             ans=ans/10;
             return ;
         }
-        ans=ans*10+root->val;
-        if(root->left!=NULL){
-        solve(root->left,ans,sum);
-        }
-        if(root->right!=NULL){
-        solve(root->right,ans,sum);
-        }
-        ans=ans/10;
+        ans=(ans*10)+(root->val);
+        solve(root->left,ans);
+        solve(root->right,ans);
+        ans/=10;
         return ;
     }
     int sumNumbers(TreeNode* root) {
-        int ans=0,sum=0;
-    solve(root,ans,sum);
+      solve(root,0);
         return sum;
     }
 };
