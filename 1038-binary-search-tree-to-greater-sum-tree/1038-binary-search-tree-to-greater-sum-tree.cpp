@@ -11,19 +11,25 @@
  */
 class Solution {
 public:
-    long long int ans=0;
-    void dfs(TreeNode* root){
-        if(root==NULL){
+    int sum;
+    void solve(TreeNode *root){
+     if(root==NULL) return ;
+        if(root->left==NULL&&root->right==NULL){
+            //sum+=root->val;
+            root->val+=sum;
+            sum=root->val;
             return ;
         }
-        dfs(root->right);
-        ans+=root->val;
-            root->val=ans;
-        dfs(root->left);
+        solve(root->right);
+        sum+=root->val;
+        root->val=sum;
+        solve(root->left);
+        return ;
+        
     }
     TreeNode* bstToGst(TreeNode* root) {
-        ans=0;
-        dfs(root);
+        sum=0;
+        solve(root);
         return root;
     }
 };
