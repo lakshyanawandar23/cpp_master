@@ -11,28 +11,24 @@
  */
 class Solution {
 public:
-    TreeNode* solve(int s,int e,vector<int>&v)
-    {
-        if(s>e){
-            return NULL;
-        }
-       int m=(s+e)/2;
-        TreeNode* root=new TreeNode(v[m]);
-        root->left=solve(s,m-1,v);
-        root->right=solve(m+1,e,v);
-        return root;
-    }
-    void dfs(TreeNode* root,vector<int>&v){
-        if(root==NULL){
-            return ;
-        }
-      dfs(root->left,v);
+    void dfs(TreeNode * root,vector<int>&v){
+    if(root==NULL) return ;
+     dfs(root->left,v);
         v.push_back(root->val);
         dfs(root->right,v);
+        return ;
+    }
+    TreeNode * solve(vector<int>&v,int l,int h){
+        if(l>h) return NULL;
+        int mid=(l+h)/2;
+        TreeNode * root=new TreeNode (v[mid]);
+        root->left=solve(v,l,mid-1);
+        root->right=solve(v,mid+1,h);
+        return root;
     }
     TreeNode* balanceBST(TreeNode* root) {
         vector<int>v;
         dfs(root,v);
-        return solve(0,v.size()-1,v);
+       return solve(v,0,v.size()-1);
     }
 };
