@@ -1,22 +1,19 @@
 class Solution {
 public:
-
-    long long maximumImportance(int n, vector<vector<int>>& r) {
-        vector<int>adj[n+1];
-        vector<int>indegree(n,0);
-     long long int cnt=1,ans=0;
-        for(auto v:r){
-            adj[v[0]].push_back(v[1]);
-            adj[v[1]].push_back(v[0]);
-            indegree[v[0]]++;
-            indegree[v[1]]++;
+    long long maximumImportance(int n, vector<vector<int>>& s) {
+        long long int ans=0;
+        vector<long long int>v(n,0);
+        for(int i=0;i<s.size();i++){
+            v[s[i][0]]++;
+            v[s[i][1]]++;
         }
-        sort(indegree.begin(),indegree.end());
+        sort(v.begin(),v.end(),greater<int>());
+    long long    int cnt=n;
         for(int i=0;i<n;i++){
-           ans+=(indegree[i]*cnt);
-            cnt++;
+            long long int res=(long long int)(cnt*v[i]);
+            ans+=res;
+            cnt--;
         }
-     
         return ans;
     }
 };
