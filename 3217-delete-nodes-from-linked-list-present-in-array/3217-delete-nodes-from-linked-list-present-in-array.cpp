@@ -15,16 +15,33 @@ public:
         for(auto it:num){
             mp[it]++;
         }
-        ListNode * h2=new ListNode(-1);
-        ListNode * curr=h2;
-        while(head!=NULL){
-     if(mp.find(head->val)==mp.end()){
-         ListNode * temp=new ListNode(head->val);
-         curr->next=temp;
-         curr=curr->next;
+        ListNode *h1=NULL;
+        ListNode * prev=h1; 
+        ListNode * curr=head;
+        while(curr!=NULL){
+     if(mp.find(curr->val)!=mp.end()){
+         if(prev!=NULL){
+    prev->next=NULL;
+         }
+         ListNode *next=curr->next;
+         curr->next=NULL;
+         delete(curr);
+         curr=next;
      }
-            head=head->next;
+            else {
+                if(prev!=NULL){
+              prev->next=curr;
+                prev=prev->next;
+                }
+                else {
+                    prev=curr;
+                }
+                curr=curr->next;
+            }
+            if(prev!=NULL&&h1==NULL){
+                h1=prev;
+            }
         }
-        return h2->next;
+        return  h1 ;
     }
 };
