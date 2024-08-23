@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[2][101][500];
+    int dp[2][101][101];
     int solve(int player,int i,int m,vector<int>&p){
         if(i>=p.size() ) return 0;
         if(dp[player][i][m]!=-1) return dp[player][i][m];
