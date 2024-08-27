@@ -1,29 +1,27 @@
 class Solution {
 public:
-    double maxProbability(int n, vector<vector<int>>& e, vector<double>& v, int s, int end) {
+    double maxProbability(int n, vector<vector<int>>& e, vector<double>& p, int st, int end) {
         vector<pair<int,double>>adj[n];
         for(int i=0;i<e.size();i++){
-            adj[e[i][0]].push_back({e[i][1],v[i]});
-            adj[e[i][1]].push_back({e[i][0],v[i]});
+            adj[e[i][0]].push_back({e[i][1],p[i]});
+            adj[e[i][1]].push_back({e[i][0],p[i]});
         }
-        vector<double>vis(n,0.0);
         priority_queue<pair<double,int>>q;
-        vis[s]=1;
-        q.push({1.0,s});
-       // double ans=0.0;
+        q.push({1.0,st});
+        vector<double>ans(n,0.0);
         while(!q.empty()){
-         auto p=q.top();
+             auto t=q.top();
             q.pop();
-            if(p.second==end){
-                return p.first;
-            }
-            for(auto it:adj[p.second]){
-                if((it.second*p.first)>vis[it.first]){
-                vis[it.first]=(it.second*p.first);
-              q.push({vis[it.first],it.first});
+            if(t.second==end) {
+                break;}
+            for(auto it:adj[t.second]){
+                double res=(double)(it.second*t.first);
+                if(ans[it.first]<res){
+                q.push({res,it.first});
+                    ans[it.first]=res;
                 }
             }
         }
-        return 0;
+        return ans[end];
     }
 };
