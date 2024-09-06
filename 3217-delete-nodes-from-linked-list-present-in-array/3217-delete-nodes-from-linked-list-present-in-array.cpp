@@ -11,37 +11,28 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& num, ListNode* head) {
-     unordered_map<int,int>mp;
+        unordered_map<int,int>mp;
         for(auto it:num){
             mp[it]++;
         }
-        ListNode *h1=NULL;
-        ListNode * prev=h1; 
+        ListNode *prev;
+        ListNode  *next;
+        ListNode * h1=new ListNode(-1);
         ListNode * curr=head;
+        prev=h1;
         while(curr!=NULL){
-     if(mp.find(curr->val)!=mp.end()){
-         if(prev!=NULL){
-    prev->next=NULL;
-         }
-         ListNode *next=curr->next;
-         curr->next=NULL;
-         delete(curr);
-         curr=next;
-     }
+            if(mp.find(curr->val)!=mp.end()){
+                next=curr->next;
+                prev->next=next;
+                delete(curr);
+                curr=next;
+            }
             else {
-                if(prev!=NULL){
-              prev->next=curr;
-                prev=prev->next;
-                }
-                else {
-                    prev=curr;
-                }
+                prev->next=curr;
+                prev=curr;
                 curr=curr->next;
             }
-            if(prev!=NULL&&h1==NULL){
-                h1=prev;
-            }
         }
-        return  h1 ;
+        return h1->next;
     }
 };
