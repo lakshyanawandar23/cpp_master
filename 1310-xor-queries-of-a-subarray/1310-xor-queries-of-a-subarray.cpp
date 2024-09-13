@@ -1,23 +1,20 @@
 class Solution {
 public:
     vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& q) {
-        vector<int>ans;
-        vector<int>res(arr.size());
-        int cnt=0;
-        for(int i=0;i<arr.size();i++){
-            int x=cnt^arr[i];
-           // cout<<x<<endl;
-            res[i]=x;
-            cnt=res[i];
+        vector<int>pre,ans;
+        int x=0;
+        for(auto it:arr){
+            x=x^it;
+            pre.push_back(x);
         }
-        for(auto val:q){
-            int l=val[0];
-            int r=val[1];
-            int x=res[r];
-            if(l>0){
-                x=res[l-1]^res[r];
+        for(auto it:q){
+            if(it[0]!=0){
+            int res=pre[it[1]]^pre[it[0]-1];
+            ans.push_back(res);
             }
-            ans.push_back(x);
+            else {
+                ans.push_back(pre[it[1]]);
+            }
         }
         return ans;
     }
