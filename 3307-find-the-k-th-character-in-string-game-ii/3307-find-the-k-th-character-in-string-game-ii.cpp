@@ -1,7 +1,7 @@
 class Solution {
 public:
     char kthCharacter(long long k, vector<int>& op) {
-        vector<int>v;
+    int x=0;
         while(k>1){
           long long  int size=1,j;
             for(int i=0;i<op.size();i++){
@@ -11,12 +11,8 @@ public:
                     break;
                 }
             }
-            v.push_back(j);
+            if(j==1) x=x+1;
             k=k-size/2;
-        }
-        int x=0;
-        for(int i=v.size()-1;i>=0;i--){
-            if(v[i]==1) x=x+1;
         }
         return 'a'+(x%26);
     }
