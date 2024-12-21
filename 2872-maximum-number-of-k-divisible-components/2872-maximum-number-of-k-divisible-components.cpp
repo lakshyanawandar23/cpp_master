@@ -1,32 +1,28 @@
 class Solution {
 public:
-    int cnt;
-  long long  int  solve(int src,vector<int>adj[],int &k,vector<int>&val,vector<int>&vis){
-        if(vis[src]){
-          return  0;
-        }
+    int ans,sum;
+   long long int dfs(vector<vector<int>>&adj,vector<int>&vis,int src,vector<int>&value,int &k){
         vis[src]=1;
-       long long int sum=val[src];
+       long long int s=value[src];
+     //   cout<<sum<<endl;
         for(auto it:adj[src]){
-            sum+=solve(it,adj,k,val,vis);
+            if(vis[it]==0){
+                s+=dfs(adj,vis,it,value,k);
+            }
         }
-        if((sum)%k==0){
-          //  cout<<sum<<endl;
-            cnt++;
-            return 0;
-        }
-            return sum;
-        
+        if(s%k==0) ans++;
+        return s;
     }
-    int maxKDivisibleComponents(int n, vector<vector<int>>& e, vector<int>& val, int k) {
-        vector<int>adj[n];
-        vector<int>vis(n,0);
+    int maxKDivisibleComponents(int n, vector<vector<int>>& e, vector<int>& values, int k) {
+        vector<int>vis(n+1,0);
+        vector<vector<int>>adj(n+1);
         for(int i=0;i<e.size();i++){
             adj[e[i][0]].push_back(e[i][1]);
-           adj[e[i][1]].push_back(e[i][0]);
+            adj[e[i][1]].push_back(e[i][0]);
         }
-         cnt=0;
-        solve(0,adj,k,val,vis);
-        return cnt;
+        ans=0;
+        sum=0;
+        dfs(adj,vis,0,values,k);
+   return ans;
     }
 };
