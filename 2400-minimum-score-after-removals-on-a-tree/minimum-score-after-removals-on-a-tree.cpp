@@ -9,7 +9,7 @@ public:
      sum^=dfs(adj,it,src,in,out,subtree,num,time);
     }
     subtree[src]=curr^sum;
-    out[src]=time;
+    out[src]=++time;
     time++;
     return subtree[src];
  }
