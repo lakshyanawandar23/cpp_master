@@ -6,7 +6,7 @@ public:
             int curr=n%2;
             if(prev==curr) return false;
             prev=curr;
-            n=n/2;
+            n=n>>1;
         }
         return true;
     }
